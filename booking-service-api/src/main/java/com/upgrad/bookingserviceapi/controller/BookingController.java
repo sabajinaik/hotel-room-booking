@@ -42,13 +42,15 @@ public class BookingController {
     public ResponseEntity processPayment(@PathVariable(name = "bookingId") int bookingId
             , @RequestBody TransactionDetailsDTO transaction){
 
-        try {
+        return new ResponseEntity(bookingService.processPayment(bookingId, transaction),HttpStatus.CREATED);
+
+/*        try {
             return new ResponseEntity(bookingService.processPayment(bookingId, transaction),HttpStatus.CREATED);
         }catch (IllegalArgumentException e){
             HashMap<String,String> responseOnError = new LinkedHashMap<>();
             responseOnError.put("message","Invalid mode of payment");
             responseOnError.put("statusCode", "400");
             return new ResponseEntity(responseOnError,HttpStatus.BAD_REQUEST);
-        }
+        }*/
     }
 }

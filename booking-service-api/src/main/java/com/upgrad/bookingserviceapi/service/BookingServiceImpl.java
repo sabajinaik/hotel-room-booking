@@ -5,6 +5,7 @@ import com.upgrad.bookingserviceapi.dto.BookingDTO;
 import com.upgrad.bookingserviceapi.dto.BookingRequestDTO;
 import com.upgrad.bookingserviceapi.dto.TransactionDetailsDTO;
 import com.upgrad.bookingserviceapi.entity.BookingInfoEntity;
+import com.upgrad.bookingserviceapi.exceptions.RecordNotFoundException;
 import com.upgrad.bookingserviceapi.feign.PaymentServiceClient;
 import com.upgrad.bookingserviceapi.repository.BookingRepo;
 import com.upgrad.bookingserviceapi.service.interfaces.BookingService;
@@ -65,9 +66,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO getBooking(int bookingId) throws RuntimeException {
+    public BookingDTO getBooking(int bookingId) throws RecordNotFoundException {
         Optional<BookingInfoEntity> bookingInfo = bookingRepo.findById(bookingId);
-        if (bookingInfo == null) throw new RuntimeException("Unable to locate the booking Id : "+ bookingId);
+        if (bookingInfo == null) throw new RecordNotFoundException("Invalid Booking Id");
         BookingDTO bookingDTO = modelMapper.map(bookingInfo.get(), BookingDTO.class);
         return bookingDTO;
     }
