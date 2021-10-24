@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 @RestController
 @RequestMapping(value = "/booking_app/v1")
 public class BookingController {
@@ -38,6 +41,14 @@ public class BookingController {
             , consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity processPayment(@PathVariable(name = "bookingId") int bookingId
             , @RequestBody TransactionDetailsDTO transaction){
-        return new ResponseEntity(bookingService.processPayment(bookingId, transaction),HttpStatus.CREATED);
+
+        try {
+            return new ResponseEntity(bookingService.processPayment(bookingId, transaction),HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            HashMap<String,String> responseOnError = new LinkedHashMap<>();
+            responseOnError.put("message","Invalid mode of payment");
+            responseOnError.put("statusCode", "400");
+            return new ResponseEntity(responseOnError,HttpStatus.BAD_REQUEST);
+        }
     }
 }

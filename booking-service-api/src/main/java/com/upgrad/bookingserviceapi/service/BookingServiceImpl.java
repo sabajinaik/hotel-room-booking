@@ -1,5 +1,6 @@
 package com.upgrad.bookingserviceapi.service;
 
+import com.upgrad.bookingserviceapi.constants.PaymentMode;
 import com.upgrad.bookingserviceapi.dto.BookingDTO;
 import com.upgrad.bookingserviceapi.dto.BookingRequestDTO;
 import com.upgrad.bookingserviceapi.dto.TransactionDetailsDTO;
@@ -64,15 +65,21 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO getBooking(int bookingId) {
+    public BookingDTO getBooking(int bookingId) throws RuntimeException {
         Optional<BookingInfoEntity> bookingInfo = bookingRepo.findById(bookingId);
         if (bookingInfo == null) throw new RuntimeException("Unable to locate the booking Id : "+ bookingId);
         BookingDTO bookingDTO = modelMapper.map(bookingInfo.get(), BookingDTO.class);
         return bookingDTO;
     }
 
-    public TransactionDetailsDTO processPayment(int bookingId, TransactionDetailsDTO transactionDetailsDTO) throws RuntimeException{
+    public TransactionDetailsDTO processPayment(int bookingId, TransactionDetailsDTO transactionDetailsDTO) throws IllegalArgumentException{
         BookingDTO bookingDTO = this.getBooking(bookingId);
+
+        if (!(transactionDetailsDTO.getPaymentMode().equals(PaymentMode.CARD) ||
+                transactionDetailsDTO.getPaymentMode().equals(PaymentMode.UPI))) {
+            throw new IllegalArgumentException("Invalid mode of payment");
+        }
+
         BookingInfoEntity bookingInfo = modelMapper.map(bookingDTO, BookingInfoEntity.class);
         TransactionDetailsDTO savedTransaction = paymentServiceClient.processPayment(transactionDetailsDTO);
         //update transaction id on the booking

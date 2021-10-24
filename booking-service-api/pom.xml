@@ -68,7 +68,7 @@
 			<artifactId>joda-time</artifactId>
 			<version>2.9.7</version>
 		</dependency>
-		<!-- for config-server-->
+		<!-- for config-server:Start-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -77,6 +77,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
+		<!-- for config-server:End-->
+		<!-- for AOP:Start-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- for config-server:End-->
 		<!-- Additional dependencies End -->
 	</dependencies>
 	<dependencyManagement>
