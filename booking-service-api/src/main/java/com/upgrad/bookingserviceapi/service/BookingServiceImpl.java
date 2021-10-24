@@ -75,12 +75,6 @@ public class BookingServiceImpl implements BookingService {
 
     public TransactionDetailsDTO processPayment(int bookingId, TransactionDetailsDTO transactionDetailsDTO) throws IllegalArgumentException{
         BookingDTO bookingDTO = this.getBooking(bookingId);
-
-        if (!(transactionDetailsDTO.getPaymentMode().equals(PaymentMode.CARD) ||
-                transactionDetailsDTO.getPaymentMode().equals(PaymentMode.UPI))) {
-            throw new IllegalArgumentException("Invalid mode of payment");
-        }
-
         BookingInfoEntity bookingInfo = modelMapper.map(bookingDTO, BookingInfoEntity.class);
         TransactionDetailsDTO savedTransaction = paymentServiceClient.processPayment(transactionDetailsDTO);
         //update transaction id on the booking
