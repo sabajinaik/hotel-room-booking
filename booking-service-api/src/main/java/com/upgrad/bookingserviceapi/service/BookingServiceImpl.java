@@ -68,7 +68,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDTO getBooking(int bookingId) throws RecordNotFoundException {
         Optional<BookingInfoEntity> bookingInfo = bookingRepo.findById(bookingId);
-        if (bookingInfo == null) throw new RecordNotFoundException("Invalid Booking Id");
+        if (!bookingInfo.isPresent()) throw new RecordNotFoundException("Invalid Booking Id");
         BookingDTO bookingDTO = modelMapper.map(bookingInfo.get(), BookingDTO.class);
         return bookingDTO;
     }
