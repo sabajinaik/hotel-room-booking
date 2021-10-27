@@ -1,8 +1,0 @@
-#Payment Service API Link
-https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=17&groupId=com.upgrad&artifactId=payment-service-api&name=payment-service-api&description=Hotel%20Booking%20API%20(Payment%20Service)&packageName=com.upgrad.payment-service-api&dependencies=web,lombok,cloud-eureka,h2
-
-#booking Service api link
-https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=17&groupId=com.upgrad&artifactId=booking-service-api&name=booking-service-api&description=Hotel%20Booking%20API%20(Booking%20Service)&packageName=com.upgrad.booking-service-api&dependencies=web,lombok,cloud-eureka,h2
-
-#API Gateway
-https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=17&groupId=com.upgrad&artifactId=api-gateway&name=api-gateway&description=Hotel%20Booking%20API%20(Gateway)&packageName=com.upgrad.api-gateway&dependencies=web,cloud-config-server
